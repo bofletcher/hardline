@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import CharacterBuilder from '../src/components/BuildCharacter/CharacterBuilder'
+import CharacterBuilder from '../src/components/CharacterBuilder/CharacterBuilder'
 import PlayerStats from './components/PlayerStats/PlayerStats';
 
 function App() {
