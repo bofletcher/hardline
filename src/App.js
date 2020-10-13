@@ -1,24 +1,89 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import CharacterBuilder from '../src/components/BuildCharacter/CharacterBuilder'
+import PlayerStats from './components/PlayerStats/PlayerStats';
 
 function App() {
+
+    const [playerClass, setPlayerClass] = useState(null)
+    const [step, setStep] = useState(0);
+    const [inventory, setInventory] = useState([])
+    
+    const addItemToInventory = (e) => {
+      e.preventDefault();
+      setInventory({
+        ...inventory,
+
+      })
+
+    }
+
+    function initializePlayer(chosenClass) {
+      
+      if(chosenClass === "DECKER") {
+        setPlayerClass("DECKER");
+        setInventory([
+          ...inventory,
+          {
+            id: 0,
+            name: "Cyber-Deck"
+          },
+          {
+            id: 1,
+            name: "Heavy-Pistol"
+          }
+        ])
+      } else if (chosenClass === "OPERATOR") {
+
+        setPlayerClass("OPERATOR")
+        setInventory([
+          ...inventory,
+          {
+            id: 0,
+            name: "Cyber-Deck-Operator-Style"
+          },
+          {
+            id: 1,
+            name: "Heavy-Pistol"
+          }
+        ])
+      } else if (chosenClass === "WARRIOR") {
+        setPlayerClass("WARRIOR")
+        setInventory([
+          ...inventory,
+          {
+            id: 0,
+            name: "Cyber-Deck-Operator-Style"
+          },
+          {
+            id: 1,
+            name: "Heavy-Pistol"
+          }
+        ])
+      }
+
+    }
+    
+    
+    let gameView;
+
+    if (step === 0) {
+      gameView = <CharacterBuilder 
+                    initializePlayer = {initializePlayer}
+                    setStep = { setStep }
+                    />
+    } else if(step ===1) {
+      gameView = <div>HERE</div>
+    }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>STEP: {step}</div>
+        {gameView}
+        <PlayerStats  
+          playerClass={playerClass} 
+          inventory={inventory}
+          />
     </div>
   );
 }
