@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
+import Menu from '../src/components/Menu/Menu'
 import CharacterBuilder from '../src/components/CharacterBuilder/CharacterBuilder'
 import PlayerStats from './components/PlayerStats/PlayerStats';
+import GameStart from './components/GameStart/GameStart';
 
 function App() {
 
     const [playerClass, setPlayerClass] = useState(null)
     const [step, setStep] = useState(0);
     const [inventory, setInventory] = useState([])
+
+
+    function startGame() {
+      setStep(1)
+    }
+
+    function restartGame() {
+
+    }
+
+    function endGame() {
+
+    }
     
     const addItemToInventory = (e) => {
       e.preventDefault();
@@ -61,29 +77,30 @@ function App() {
           }
         ])
       }
-
+      setStep(2)
     }
     
-    
     let gameView;
-
+    //conditional rendering
     if (step === 0) {
-      gameView = <CharacterBuilder 
-                    initializePlayer = {initializePlayer}
-                    setStep = { setStep }
-                    />
+      gameView = <GameStart startGame={startGame}/>
     } else if(step ===1) {
-      gameView = <div>HERE</div>
+      gameView = <CharacterBuilder initializePlayer = {initializePlayer}/>
+    } else if (step === 2) {
+      gameView = 
+          <Router basename="/">
+            <Menu />
+              <Switch>
+                <Route path="/" exact component={() => <GameStart startGame={startGame}/>}/>
+                <Route path="/playerstats" exact component={() => <PlayerStats playerClass={playerClass} inventory={inventory}/>}/>
+                <Route />
+              </Switch>
+          </Router>
     }
 
   return (
     <div>
-      <div>STEP: {step}</div>
-        {gameView}
-        <PlayerStats  
-          playerClass={playerClass} 
-          inventory={inventory}
-          />
+      {gameView}
     </div>
   );
 }

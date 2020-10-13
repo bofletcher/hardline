@@ -8,9 +8,9 @@ function CharacterBuilder(props) {
     <div>
       <p>Choose your player type:</p>
         <div>
-          <button onClick={()=>{props.initializePlayer("DECKER"); props.setStep(1)}}>DECKER</button>
-          <button onClick={()=>{props.initializePlayer("OPERATOR"); props.setStep(1)}}>OPERATOR</button>
-          <button onClick={()=>{props.initializePlayer("WARRIOR"); props.setStep(1)}}>WARRIOR</button>
+          <button onClick={()=>{props.initializePlayer("DECKER");}}>DECKER</button>
+          <button onClick={()=>{props.initializePlayer("OPERATOR");}}>OPERATOR</button>
+          <button onClick={()=>{props.initializePlayer("WARRIOR");}}>WARRIOR</button>
         </div>
     </div>
   )
